@@ -1,0 +1,4 @@
+﻿  Sum.cpp
+C:\Users\overw\OneDrive\Рабочий стол\Прогы\Al2\Sum.cpp(3,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\overw\OneDrive\Рабочий стол\Прогы\Al2\Sum.cpp(32,8): warning C4101: temp: неиспользованная локальная переменная
+  Al2.vcxproj -> C:\Users\overw\OneDrive\Рабочий стол\Прогы\Al2\x64\Debug\Al2.exe

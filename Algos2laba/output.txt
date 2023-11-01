@@ -1,0 +1,10 @@
+First polynom
+1+2v+3v^3
+Second polynoms
+-1-7v^4
+Sum of polynoms
+3v^3+2v-7v^4
+Subtraction of polynoms
+3v^3+2v+7v^4+2
+Multiplication of polynoms
+-21v^7-3v^3-14v^5-2v-7v^4-1
