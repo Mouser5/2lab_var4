@@ -1,6 +1,5 @@
-﻿
 #include "Sum.h"
-#include <fstream>﻿
+#include <fstream>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -27,20 +26,53 @@ char FindVariable() {
 	return(variable);
 }
 
+
 List* FillPoly(List* list, double coef, int power) {
 	List* q = list;
-	List* temp;
+	if (q == NULL) {
+		q= new(List);
+		q->next = NULL;
+		q->coef = coef;
+		q->power = power;
+		q->next = list;
+		list = q;
+	return (list);
+	}
 	while (q != NULL)
 	{
+		if (q->power == power) {
+			return(list);
+		}
+		if (q->power > power) {
+			if (q->next != NULL) {
+					q->next = FillPoly(q->next, coef, power);
+			}
+			else {
+				q->next = new(List);
+				q->next->next = NULL;
+				q->next->coef = coef;
+				q->next->power = power;
+				return(list);
+			}
+
+		}
+		if (q->power<power)
+		{
+			while (q != NULL)
+			{
+				q = q->next;
+			}
+			if (q == NULL)
+				q = (List*)malloc(sizeof(List));
+			q->coef = coef;
+			q->power = power;
+			q->next = list;
+			list = q;
+			return (list);
+		}
 		q = q->next;
 	}
-	if (q == NULL)
-		q = (List*)malloc(sizeof(List));
-	q->coef = coef;
-	q->power = power;
-	q->next = list;
-	list = q;
-	return (list);
+	return(list);
 }
 
 
@@ -177,22 +209,18 @@ List* Add(List* poly, int pow, double coef) {
 		else
 			temp = temp->next;
 	}
-	if (temp == NULL)
-		temp = (List*)malloc(sizeof(List));
-	temp->coef = coef;
-	temp->power = pow;
-	temp->next = poly;
-	poly = temp;
 	return poly;
 }
 
 List MultPol(List* poly1, List* poly2) {
 	List* Res = nullptr;
 	List* Temp = poly2;
+	double NewCoef;
 	for (; poly1 != NULL; poly1 = poly1->next)
 	{
 		for (; poly2 != NULL; poly2 = poly2->next) {
 			Res = Add(Res, poly1->power + poly2->power, poly1->coef * poly2->coef);
+			Res = FillPoly(Res, poly1->coef * poly2->coef, poly1->power + poly2->power);
 		}
 		poly2 = Temp;
 	}
@@ -252,4 +280,6 @@ void AddToFile(List* poly, char variable, const char* operation) {
 		}
 		outFile << endl;
 	}
+	outFile.close();
+
 }
